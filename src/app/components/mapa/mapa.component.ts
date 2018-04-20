@@ -10,11 +10,9 @@ export class MapaComponent implements OnInit {
 
   marcadores: Marcador[] = [];
   title = 'Mapa';
-  lat = 0;
-  long = 0;
+  userLat: number;
+  userLong: number;
   constructor() {
-    const nuevoMarcador = new Marcador(this.lat, this.long, 'Hola', '');
-    this.marcadores.push(nuevoMarcador);
   }
 
   ngOnInit() {
@@ -22,9 +20,9 @@ export class MapaComponent implements OnInit {
       if (window.navigator && window.navigator.geolocation) {
         window.navigator.geolocation.getCurrentPosition(
           position => {
-              this.lat = position.coords.latitude;
-              this.long = position.coords.longitude;
-              const marker = new Marcador(this.lat, this.long, 'Ofi', 'cina');
+              this.userLat = position.coords.latitude;
+              this.userLong = position.coords.longitude;
+              const marker = new Marcador(this.userLat, this.userLong, 'Ofi', 'cina');
               this.marcadores.push(marker);
           },
           error => {
@@ -49,11 +47,8 @@ export class MapaComponent implements OnInit {
   }
 
   agregarMarcador( evento ) {
-    const coordenadas: {
-      latitude: number,
-      longitude: number
-    } = evento.coords;
-    const newMarker = new Marcador(coordenadas.latitude, coordenadas.longitude, '', '');
+    const coordenadas = evento.coords;
+    const newMarker = new Marcador(coordenadas.lat, coordenadas.lng, '', '');
     this.marcadores.push(newMarker);
   }
 }

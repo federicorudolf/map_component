@@ -2,19 +2,19 @@
   <mat-card-title>
     <h1> {{ title }} </h1>
     <br>
-    <h3> Lat: {{ lat }} <br> Long: {{ long }} </h3>
+    <h3> Lat: {{ userLat }} <br> Long: {{ userLong }} </h3>
   </mat-card-title>
   <mat-card-content>
-    <agm-map [latitude]='lat'
-             [longitude]='long'
+    <agm-map [latitude]='userLat'
+             [longitude]='userLong'
              [rotateControl]='true'
              [streetViewControl]='true'
              [scrollwheel]='false'
              [zoom]='15'
              (mapClick)='agregarMarcador( $event )' >
-      <agm-marker [latitude]='lat'
-                  [longitude]='long'
-                  *ngFor="let marcador of marcadores">
+      <agm-marker *ngFor="let marcador of marcadores"
+                  [latitude]='marcador.lat'
+                  [longitude]='marcador.long'>
         <agm-info-window>
           <strong>{{ marcador.titulo }}</strong>
           <p>
